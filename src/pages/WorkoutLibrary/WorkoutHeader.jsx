@@ -1,5 +1,3 @@
-import SearchBar from "../../components/common/SearchBar";
-
 const WorkoutHeader = () => {
   return (
     <section className="space-y-6">
@@ -10,7 +8,6 @@ const WorkoutHeader = () => {
         perfect routine.
       </p>
 
-      <SearchBar />
 
     </section>
   );

@@ -1,6 +1,6 @@
 import { MagnifyingGlass } from "phosphor-react";
 
-const SearchBar = () => {
+const SearchBar = ({ search, setSearch }) => {
   return (
     <div className="mt-8">
       <div className="relative">
@@ -11,6 +11,8 @@ const SearchBar = () => {
 
         <input
           type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
           placeholder="Search Workouts..."
           className="w-full bg-surface border border-border rounded-xl py-3 pl-12 pr-4 text-text-primary placeholder:text-text-secondary outline-none focus:border-primary transition-colors"
         />

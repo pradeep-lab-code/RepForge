@@ -9,10 +9,7 @@ import WorkoutHeader from "./WorkoutHeader";
 import WorkoutCategory from "./WorkoutCategory";
 import WorkoutCard from "../../components/common/WorkoutCard";
 
-import {
-  recommendedWorkouts,
-  popularWorkouts,
-} from "../../data/workouts";
+import { recommendedWorkouts, popularWorkouts } from "../../data/workouts";
 
 const WorkoutLibrary = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -22,32 +19,26 @@ const WorkoutLibrary = () => {
     selectedCategory === "All"
       ? recommendedWorkouts
       : recommendedWorkouts.filter(
-          (workout) => workout.category === selectedCategory
+          (workout) => workout.category === selectedCategory,
         );
 
   const filteredPopular =
     selectedCategory === "All"
       ? popularWorkouts
       : popularWorkouts.filter(
-          (workout) => workout.category === selectedCategory
+          (workout) => workout.category === selectedCategory,
         );
 
   return (
     <div className="flex min-h-screen bg-background">
-      <Sidebar
-        isOpen={isSidebarOpen}
-        onClose={() => setIsSidebarOpen(false)}
-      />
+      <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
       <div className="flex-1 flex flex-col lg:ml-64">
         <DesktopHeader title="Workout Library" />
 
-        <MobileNavbar
-          onMenuClick={() => setIsSidebarOpen(true)}
-        />
+        <MobileNavbar onMenuClick={() => setIsSidebarOpen(true)} />
 
         <main className="p-6">
-
           <WorkoutHeader />
 
           <WorkoutCategory
@@ -58,7 +49,6 @@ const WorkoutLibrary = () => {
           {/* Recommended */}
 
           <section className="mt-10">
-
             <h2 className="text-2xl font-bold text-text-primary mb-5 flex items-center gap-2">
               <Fire className="text-orange-500" />
 
@@ -68,15 +58,15 @@ const WorkoutLibrary = () => {
             </h2>
 
             <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-
               {filteredRecommended.length > 0 ? (
                 filteredRecommended.map((workout) => (
                   <WorkoutCard
                     key={workout.id}
+                    id={workout.id}
                     title={workout.title}
                     description={workout.description}
                     level={workout.level}
-                    exercises={workout.exercises}
+                    exercises={workout.exercises.length}
                     duration={workout.duration}
                     calories={workout.calories}
                   />
@@ -86,15 +76,12 @@ const WorkoutLibrary = () => {
                   No recommended workouts found.
                 </p>
               )}
-
             </div>
-
           </section>
 
           {/* Popular */}
 
           <section className="mt-10">
-
             <h2 className="text-2xl font-bold text-text-primary mb-5 flex items-center gap-2">
               <Fire className="text-orange-500" />
 
@@ -104,11 +91,11 @@ const WorkoutLibrary = () => {
             </h2>
 
             <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-
               {filteredPopular.length > 0 ? (
                 filteredPopular.map((workout) => (
                   <WorkoutCard
                     key={workout.id}
+                    id={workout.id}
                     title={workout.title}
                     description={workout.description}
                     level={workout.level}
@@ -122,11 +109,8 @@ const WorkoutLibrary = () => {
                   No popular workouts found.
                 </p>
               )}
-
             </div>
-
           </section>
-
         </main>
       </div>
     </div>

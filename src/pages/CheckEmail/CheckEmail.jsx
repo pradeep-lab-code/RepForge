@@ -31,8 +31,8 @@ const CheckEmail = () => {
              Resend Again
             </Link>
           </p>
-          <div className="mt-5 text-center">
-            <Link to='/login' className="bg-transparent border border-border text-text-primary hover:bg-background">
+          <div className="flex mt-5 text-center">
+            <Link to='/login' className="flex-1 p-4 rounded-2xl bg-transparent border border-primary text-primary hover:bg-background">
   Back to Login
 </Link>
           </div>

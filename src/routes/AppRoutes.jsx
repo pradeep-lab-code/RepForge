@@ -11,7 +11,7 @@ import WorkoutDetails from "../pages/WorkoutDetails/WorkoutDetails";
 import Progress from "../pages/Progress/Progress";
 import Profile from "../pages/Profile/Profile";
 import CheckEmail from "../pages/CheckEmail/CheckEmail";
-
+import EditProfile from "../pages/EditProfile/EditProfile";
 
 function AppRoutes() {
   return (
@@ -20,13 +20,14 @@ function AppRoutes() {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
-      
-      <Route path="/check-email" element={<CheckEmail/>}/>
+
+      <Route path="/check-email" element={<CheckEmail />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/workouts" element={<WorkoutLibrary />} />
       <Route path="/workouts/:id" element={<WorkoutDetails />} />
       <Route path="/progress" element={<Progress />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/profile/edit" element={<EditProfile />} />
     </Routes>
   );
 }

@@ -23,8 +23,8 @@ const ForgotPassword = () => {
             placeholder="Enter your email"
             label="Email"
           ></Input>
-          <div className="mt-8 text-center ">
-            <Link to='/check-email' className="bg-primary rounded-2xl p-4 min-w-full text-text-primary ">Send Reset Link</Link>
+          <div className="flex mt-8 text-center ">
+            <Link to='/check-email' className="flex-1 bg-primary rounded-2xl p-4 min-w-full text-text-primary ">Send Reset Link</Link>
           </div>
           <div className="mt-5 text-center">
             <Link to="/login" className="text-primary hover:underline ">

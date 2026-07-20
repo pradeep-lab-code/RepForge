@@ -15,26 +15,116 @@ import EditProfile from "../pages/EditProfile/EditProfile";
 import AICoach from "../pages/AICoach/AICoach";
 import SavedWorkouts from "../pages/SavedWorkouts/SavedWorkouts";
 
+import ProtectedRoute from "./ProtectedRoute";
+import PublicRoute from "./PublicRoute";
+
 function AppRoutes() {
   return (
     <Routes>
+
       <Route path="/" element={<Landing />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/forgot-password" element={<ForgotPassword />} />
+
+      <Route
+        path="/login"
+        element={
+          <PublicRoute>
+            <Login />
+          </PublicRoute>
+        }
+      />
+
+      <Route
+        path="/signup"
+        element={
+          <PublicRoute>
+            <Signup />
+          </PublicRoute>
+        }
+      />
+
+      <Route
+        path="/forgot-password"
+        element={
+          <PublicRoute>
+            <ForgotPassword />
+          </PublicRoute>
+        }
+      />
 
       <Route path="/check-email" element={<CheckEmail />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/workouts" element={<WorkoutLibrary />} />
-      <Route path="/workouts/:id" element={<WorkoutDetails />} />
-      <Route path="/progress" element={<Progress />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/profile/edit" element={<EditProfile />} />
-      <Route path="/ai-coach" element={<AICoach />} />
+
       <Route
-path="/saved-workouts"
-element={<SavedWorkouts />}
-/>
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/workouts"
+        element={
+          <ProtectedRoute>
+            <WorkoutLibrary />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/workouts/:id"
+        element={
+          <ProtectedRoute>
+            <WorkoutDetails />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/progress"
+        element={
+          <ProtectedRoute>
+            <Progress />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/profile/edit"
+        element={
+          <ProtectedRoute>
+            <EditProfile />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/ai-coach"
+        element={
+          <ProtectedRoute>
+            <AICoach />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/saved-workouts"
+        element={
+          <ProtectedRoute>
+            <SavedWorkouts />
+          </ProtectedRoute>
+        }
+      />
+
     </Routes>
   );
 }

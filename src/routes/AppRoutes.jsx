@@ -12,6 +12,8 @@ import Progress from "../pages/Progress/Progress";
 import Profile from "../pages/Profile/Profile";
 import CheckEmail from "../pages/CheckEmail/CheckEmail";
 import EditProfile from "../pages/EditProfile/EditProfile";
+import AICoach from "../pages/AICoach/AICoach";
+import SavedWorkouts from "../pages/SavedWorkouts/SavedWorkouts";
 
 function AppRoutes() {
   return (
@@ -28,6 +30,11 @@ function AppRoutes() {
       <Route path="/progress" element={<Progress />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/profile/edit" element={<EditProfile />} />
+      <Route path="/ai-coach" element={<AICoach />} />
+      <Route
+path="/saved-workouts"
+element={<SavedWorkouts />}
+/>
     </Routes>
   );
 }

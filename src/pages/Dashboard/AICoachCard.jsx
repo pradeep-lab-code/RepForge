@@ -1,7 +1,12 @@
 import { Sparkle } from "phosphor-react";
 import Button from "../../components/common/Button";
+import { useNavigate } from "react-router-dom";
+
 
 const AICoachCard = () => {
+  
+const navigate = useNavigate();
+
   return (
     <div className="bg-surface border border-border rounded-2xl p-6">
 
@@ -29,7 +34,7 @@ const AICoachCard = () => {
 
       <div className="mt-8">
 
-        <Button>
+        <Button onClick={() => navigate("/ai-coach")}>
           Generate Plan
         </Button>
 

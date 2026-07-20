@@ -2,24 +2,37 @@ const Button = ({
   children,
   onClick,
   disabled = false,
+  variant = "primary",
   className = "",
 }) => {
+
+  const variants = {
+    primary:
+      "bg-primary text-white hover:opacity-90",
+
+    secondary:
+      "bg-secondary text-white hover:opacity-90",
+
+    outline:
+      "bg-transparent border border-border text-text-primary hover:bg-primary hover:text-white",
+
+    danger:
+      "bg-red-500 text-white hover:bg-red-600",
+  };
+
   return (
     <button
       onClick={onClick}
       disabled={disabled}
       className={`
-        w-full
         h-[52px]
+        w-full
         rounded-xl
-        bg-primary
-        text-text-primary
         font-semibold
-        cursor-pointer
         transition-all
-        hover:opacity-90
         disabled:opacity-50
         disabled:cursor-not-allowed
+        ${variants[variant]}
         ${className}
       `}
     >

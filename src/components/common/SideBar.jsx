@@ -1,7 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
-import { House, Barbell, ChartBar, User, SignOut, X } from "phosphor-react";
+import { House, Barbell, ChartBar, User, SignOut, X ,Heart,Sparkle } from "phosphor-react";
 
 import logo from "../../assets/images/repforge-logo.png";
+import { path } from "framer-motion/client";
 
 const Sidebar = ({ isOpen, onClose }) => {
   const location = useLocation();
@@ -21,12 +22,20 @@ const Sidebar = ({ isOpen, onClose }) => {
       name: "Progress",
       path: "/progress",
       icon: ChartBar,
+    },{
+      name:"AI Coach",
+      path:"/ai-coach",
+      icon: Sparkle
     },
     {
+      name:"Saved Workouts",
+      path: "/saved-workouts",
+      icon:Heart,
+    }, {
       name: "Profile",
       path: "/profile",
       icon: User,
-    },
+    }
   ];
 
   return (

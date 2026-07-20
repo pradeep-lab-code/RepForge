@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { ChartBar } from "phosphor-react";
+import { useNavigate } from "react-router-dom";
 
 import Sidebar from "../../components/common/Sidebar";
-import MobileNavbar from "../../components/common/MobileNavbar";
 import DesktopHeader from "../../components/common/DesktopHeader";
+import MobileNavbar from "../../components/common/MobileNavbar";
+import EmptyState from "../../components/common/EmptyState";
 
 import ProgressHeader from "./ProgressHeader";
 import StatsCards from "./StatsCard";
@@ -13,6 +16,11 @@ import Achievements from "./Achievements";
 
 const Progress = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const navigate = useNavigate();
+
+  // Replace with backend progress data
+  const hasProgress = true;
 
   return (
     <div className="flex min-h-screen bg-background">
@@ -31,20 +39,31 @@ const Progress = () => {
 
         <main className="p-6">
 
-          <ProgressHeader />
+          {!hasProgress ? (
+            <EmptyState
+              icon={<ChartBar size={70} weight="duotone" />}
+              title="No Progress Yet"
+              description="Complete your first workout to unlock your fitness insights."
+              buttonText="Explore Workouts"
+              onClick={() => navigate("/workouts")}
+            />
+          ) : (
+            <>
+              <ProgressHeader />
 
-          <StatsCards />
+              <StatsCards />
 
-           <WeightProgress />
+              <WeightProgress />
 
-          <WeeklyActivity />
+              <WeeklyActivity />
 
-          <RecentWorkouts />
+              <RecentWorkouts />
 
-          <Achievements />
+              <Achievements />
+            </>
+          )}
 
         </main>
-
       </div>
     </div>
   );

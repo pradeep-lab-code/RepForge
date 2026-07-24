@@ -45,11 +45,7 @@ const userSchema = new mongoose.Schema(
 
     goal: {
       type: String,
-      enum: [
-        "Weight Loss",
-        "Muscle Gain",
-        "Maintain Fitness",
-      ],
+      enum: ["Weight Loss", "Muscle Gain", "Maintain Fitness"],
       default: null,
     },
 
@@ -57,10 +53,16 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    savedWorkouts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Workout",
+      },
+    ],
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-module.exports = mongoose.model("User", userSchema);    
+module.exports = mongoose.model("User", userSchema);

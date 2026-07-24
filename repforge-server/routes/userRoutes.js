@@ -8,6 +8,9 @@ const {
   saveWorkout,
   unsaveWorkout,
   getSavedWorkouts,
+  getTodayGoal,
+updateWater,
+updateCalories,
 } = require("../controllers/userController");
 
 const { protect } = require("../middleware/authMiddleware");
@@ -17,11 +20,16 @@ router.get("/profile", protect, getProfile);
 
 router.put("/profile", protect, updateProfile);
 
-// Saved Workouts
 router.post("/save/:workoutId", protect, saveWorkout);
 
 router.delete("/save/:workoutId", protect, unsaveWorkout);
 
 router.get("/saved", protect, getSavedWorkouts);
+router.get("/today-goal", protect, getTodayGoal);
+
+router.put("/water", protect, updateWater);
+
+router.put("/calories", protect, updateCalories);
+
 
 module.exports = router;

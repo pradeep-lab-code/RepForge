@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const Workout = require("../models/Workout");
+const Progress = require("../models/Progress");
 
 // Get Profile
 const getProfile = async (req, res) => {
@@ -17,8 +18,7 @@ const getProfile = async (req, res) => {
 // Update Profile
 const updateProfile = async (req, res) => {
   try {
-    const { name, age, gender, height, weight, goal, profileImage } =
-      req.body;
+    const { name, age, gender, height, weight, goal, profileImage } = req.body;
 
     const user = await User.findById(req.user._id);
 
@@ -32,9 +32,16 @@ const updateProfile = async (req, res) => {
     user.age = age || user.age;
     user.gender = gender || user.gender;
     user.height = height || user.height;
-    user.weight = weight || user.weight;
     user.goal = goal || user.goal;
     user.profileImage = profileImage || user.profileImage;
+    if (weight !== undefined && weight !== user.weight) {
+      user.weightHistory.push({
+        weight,
+      });
+
+      user.weight = weight;
+    }
+    
 
     const updatedUser = await user.save();
 
@@ -67,7 +74,7 @@ const saveWorkout = async (req, res) => {
     }
 
     const alreadySaved = user.savedWorkouts.some(
-      (id) => id.toString() === workoutId
+      (id) => id.toString() === workoutId,
     );
 
     if (alreadySaved) {
@@ -98,7 +105,7 @@ const unsaveWorkout = async (req, res) => {
     const user = await User.findById(req.user._id);
 
     user.savedWorkouts = user.savedWorkouts.filter(
-      (id) => id.toString() !== req.params.workoutId
+      (id) => id.toString() !== req.params.workoutId,
     );
 
     await user.save();
@@ -118,9 +125,7 @@ const unsaveWorkout = async (req, res) => {
 // Get Saved Workouts
 const getSavedWorkouts = async (req, res) => {
   try {
-    const user = await User.findById(req.user._id).populate(
-      "savedWorkouts"
-    );
+    const user = await User.findById(req.user._id).populate("savedWorkouts");
 
     if (!user) {
       return res.status(404).json({
@@ -138,10 +143,161 @@ const getSavedWorkouts = async (req, res) => {
   }
 };
 
+// Get User Progress
+const getProgress = async (req, res) => {
+  try {
+    let progress = await Progress.findOne({
+      user: req.user._id,
+    });
+
+    if (!progress) {
+      progress = await Progress.create({
+        user: req.user._id,
+      });
+    }
+
+    res.status(200).json(progress);
+  } catch (error) {
+    console.error(error.message);
+
+    res.status(500).json({
+      message: "Server Error",
+    });
+  }
+};
+
+// Update Progress
+const updateProgress = async (req, res) => {
+  try {
+    let progress = await Progress.findOne({
+      user: req.user._id,
+    });
+
+    if (!progress) {
+      progress = await Progress.create({
+        user: req.user._id,
+      });
+    }
+
+    const {
+      currentWeight,
+      caloriesBurned,
+      workoutsCompleted,
+      streak,
+      weeklyActivity,
+      recentWorkouts,
+      achievements,
+    } = req.body;
+
+    if (currentWeight !== undefined) progress.currentWeight = currentWeight;
+
+    if (caloriesBurned !== undefined) progress.caloriesBurned = caloriesBurned;
+
+    if (workoutsCompleted !== undefined)
+      progress.workoutsCompleted = workoutsCompleted;
+
+    if (streak !== undefined) progress.streak = streak;
+
+    if (weeklyActivity) progress.weeklyActivity = weeklyActivity;
+
+    if (recentWorkouts) progress.recentWorkouts = recentWorkouts;
+
+    if (achievements) progress.achievements = achievements;
+
+    await progress.save();
+
+    res.status(200).json({
+      message: "Progress Updated Successfully",
+      progress,
+    });
+  } catch (error) {
+    console.error(error.message);
+
+    res.status(500).json({
+      message: "Server Error",
+    });
+  }
+};
+
+// Get Today's Goal
+const getTodayGoal = async (req, res) => {
+  try {
+
+    const user = await User.findById(req.user._id);
+
+    res.json(user.todayGoal);
+
+  } catch (error) {
+
+    console.error(error);
+
+    res.status(500).json({
+      message: "Server Error",
+    });
+
+  }
+};
+
+
+// Update Water
+const updateWater = async (req, res) => {
+  try {
+
+    const { water } = req.body;
+
+    const user = await User.findById(req.user._id);
+
+    user.todayGoal.waterToday += water;
+
+    await user.save();
+
+    res.json(user.todayGoal);
+
+  } catch (error) {
+
+    console.error(error);
+
+    res.status(500).json({
+      message: "Server Error",
+    });
+
+  }
+};
+
+
+// Update Calories
+const updateCalories = async (req, res) => {
+  try {
+
+    const { calories } = req.body;
+
+    const user = await User.findById(req.user._id);
+
+    user.todayGoal.caloriesToday += calories;
+
+    await user.save();
+
+    res.json(user.todayGoal);
+
+  } catch (error) {
+
+    console.error(error);
+
+    res.status(500).json({
+      message: "Server Error",
+    });
+
+  }
+};
 module.exports = {
   getProfile,
   updateProfile,
+
   saveWorkout,
   unsaveWorkout,
   getSavedWorkouts,
+
+  getTodayGoal,
+  updateWater,
+  updateCalories,
 };

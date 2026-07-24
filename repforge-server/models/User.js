@@ -59,6 +59,36 @@ const userSchema = new mongoose.Schema(
         ref: "Workout",
       },
     ],
+    weightHistory: [
+      {
+        weight: Number,
+        date: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
+    todayGoal: {
+  caloriesGoal: {
+    type: Number,
+    default: 500,
+  },
+
+  waterGoal: {
+    type: Number,
+    default: 3,
+  },
+
+  caloriesToday: {
+    type: Number,
+    default: 0,
+  },
+
+  waterToday: {
+    type: Number,
+    default: 0,
+  },
+},
   },
   {
     timestamps: true,
